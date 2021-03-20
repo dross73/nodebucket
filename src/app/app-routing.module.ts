@@ -1,7 +1,19 @@
+/*
+============================================
+; Title: app-routing.module.ts
+; Author: Dan Ross
+; Date: 20 March 2021
+; Modified By: Dan Ross
+; Description: This is the app routing module where we can set up our routes.
+;===========================================
+*/
 import { HomeComponent } from './pages/home/home.component';
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,7 +22,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [AuthGuard]
+      }
+    ]
+  },
+  {
+    path: 'session',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
       }
     ]
   }

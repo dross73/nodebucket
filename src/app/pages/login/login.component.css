@@ -1,0 +1,29 @@
+/*
+============================================
+; Title: login.component.css
+; Author: Dan Ross
+; Date: 20 March 2021
+; Modified By: Dan Ross
+; Description: This is the login component stylesheet.
+;===========================================
+*/
+.login-container {
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: lighter;
+}
+
+.login-subtitle {
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}

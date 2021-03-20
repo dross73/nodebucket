@@ -1,14 +1,22 @@
-.main-welcome {
+
+/*
+============================================
+; Title: home.component.css
+; Author: Dan Ross
+; Date: 20 March 2021
+; Modified By: Dan Ross
+; Description: This is the home component stylesheet.
+;===========================================
+*/.main-welcome {
     margin-top: 30px;
   }
-  
+
   .title {
     text-align: center;
     font-weight: lighter;
   }
-  
+
   .subtitle {
     text-align: center;
     font-size: 14px;
   }
-  

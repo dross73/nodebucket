@@ -1,4 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+============================================
+; Title: styles.css
+; Author: Dan Ross
+; Date: 20 March 2021
+; Modified By: Dan Ross
+; Description: This is the global stylesheet
+;===========================================
+
+*//* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
