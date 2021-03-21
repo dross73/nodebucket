@@ -19,11 +19,11 @@
 
     <mat-card-content>
       <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
-        <!-- Start out login form here. -->
+        <!-- Start our login form here. -->
         <form [formGroup]="loginForm" (ngSubmit)="login(); loginForm.reset()">
           <mat-card-content>
             <mat-form-field fxFlex>
-              <!-- This is out employee ID entry field. -->
+              <!-- This is our employee ID entry field. -->
               <input
                 matInput
                 [formControl]="loginForm.controls['empId']"
