@@ -50,7 +50,7 @@ mongoose.connect(conn, {
 }); // end mongoose connection
 
 /**
- * API(s) go here...
+ * Route imports/resources
  */
 
 app.use('/api/employees', EmployeeAPI);

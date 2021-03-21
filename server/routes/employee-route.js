@@ -7,6 +7,9 @@
 ; Description: This is the employee route file.
 ;===========================================
 */
+/**
+ * These are our require statements.
+ */
 const express = require("express");
 const Employee = require("../db-models/employee");
 const BaseResponse = require("../service/base-response");
@@ -19,12 +22,13 @@ const router = express.Router();
  * @param empId
  * @returns Employee document or null
  */
+//These will go through http://localhost:3000/api/employees/:empId
 
 router.get("/:empId", async (req, res) => {
   try {
 
     Employee.findOne({ empId: req.params.empId }, function (err, employee) {
-
+      //Do this if there's an error.
       if (err) {
 
         console.log(err);
@@ -37,7 +41,7 @@ router.get("/:empId", async (req, res) => {
         res.json(mongoDBErrorResponse.toObject());
 
       } else {
-
+        //Do this for successful query.
         console.log(employee);
 
         const employeeResponse = new BaseResponse(

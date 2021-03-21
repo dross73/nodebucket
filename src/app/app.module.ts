@@ -7,6 +7,7 @@
 ; Description: This is the root app module.
 ;===========================================
 */
+//These are our imports.
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

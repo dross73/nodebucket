@@ -7,6 +7,7 @@
 ; Description: This is the app routing module where we can set up our routes.
 ;===========================================
 */
+//These are our imports.
 import { HomeComponent } from './pages/home/home.component';
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import { NgModule } from '@angular/core';
@@ -15,6 +16,7 @@ import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/auth.guard';
 
+//These are routes which will load the corresponding component based on the URL path.
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +25,7 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        //Apply a guard to our Home Component so users that are not logged in cannot access.
         canActivate: [AuthGuard]
       }
     ]

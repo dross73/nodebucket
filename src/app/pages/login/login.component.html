@@ -9,7 +9,6 @@
 */ -->
 <div fxLayout="column">
   <mat-card fxFlex class="mat-elevation-z8 login-container">
-
     <mat-card-title class="login-title mat-headline"
       >Employee Login</mat-card-title
     >
@@ -20,15 +19,17 @@
 
     <mat-card-content>
       <mat-card class="mat-elevation-z0" fxLayout="column" fxLayoutGap="10px">
+        <!-- Start out login form here. -->
         <form [formGroup]="loginForm" (ngSubmit)="login(); loginForm.reset()">
           <mat-card-content>
             <mat-form-field fxFlex>
+              <!-- This is out employee ID entry field. -->
               <input
                 matInput
                 [formControl]="loginForm.controls['empId']"
                 placeholder="Employee ID"
               />
-
+              <!-- Show error if a user clicks out of the field without entering something.  -->
               <mat-error
                 *ngIf="
                   loginForm.controls['empId'].hasError('required') &&
@@ -37,7 +38,7 @@
               >
                 Employee ID is a required field
               </mat-error>
-
+              <!-- Show error if entires are not numerical.   -->
               <mat-error
                 *ngIf="
                   loginForm.controls['empId'].hasError('pattern') &&
@@ -50,6 +51,7 @@
           </mat-card-content>
 
           <mat-card-actions align="end">
+            <!-- The button will be disabled unless there's a valid entry in the field. -->
             <button
               type="submit"
               fxFlex
