@@ -16,7 +16,6 @@ const BaseResponse = require("../service/base-response");
 
 const router = express.Router();
 
-
 /**
  * API findEmployeeById
  * @param empId
@@ -26,11 +25,9 @@ const router = express.Router();
 
 router.get("/:empId", async (req, res) => {
   try {
-
     Employee.findOne({ empId: req.params.empId }, function (err, employee) {
       //Do this if there's an error.
       if (err) {
-
         console.log(err);
 
         const mongoDBErrorResponse = new BaseResponse(
@@ -39,7 +36,6 @@ router.get("/:empId", async (req, res) => {
           null
         );
         res.json(mongoDBErrorResponse.toObject());
-
       } else {
         //Do this for successful query.
         console.log(employee);
@@ -53,9 +49,7 @@ router.get("/:empId", async (req, res) => {
         res.json(employeeResponse.toObject());
       }
     });
-
   } catch (e) {
-
     console.log(e);
 
     const findEmployeeCatchError = new BaseResponse(
@@ -65,6 +59,72 @@ router.get("/:empId", async (req, res) => {
     );
 
     res.json(findEmployeeCatchError.toObject());
+  }
+});
+
+/**
+ * API CreateTask
+ */
+
+router.post("/:empId/tasks", async (req, res) => {
+  //Catch any server level exceptions that may occur in the application.
+  try {
+    //Retrieve the employee record that we're looking for.
+    Employee.findOne({ 'empId': req.params.empId }, function (err, employee) {
+      if (err) {
+        console.log(err);
+
+        const createTaskMongoDbError = new BaseResponse(
+          '500',
+          `MongoDb Exception: ${err.message}`,
+          null
+        );
+
+        res.status(500).send(createTaskMongoDbError.toObject());
+      } else {
+        console.log(employee);
+
+        const item = {
+          text: req.body.text,
+        };
+        //Push item to todo array
+        employee.todo.push(item);
+
+        employee.save(function (err, updatedEmployee) {
+          if (err) {
+            console.log(err);
+
+            const createTaskOnSaveMongoDbError = new BaseResponse(
+              '500',
+              `MongoDB onSave() exception: ${err.message}`,
+              null
+            );
+
+            res.status(500).send(createTaskOnSaveMongoDbError.toObject());
+          } else {
+            console.log(updatedEmployee);
+
+            const createTaskOnSaveSuccessResponse = new BaseResponse(
+              '200',
+              'Successful query',
+              updatedEmployee
+            );
+
+            res.status(200).send(createTaskOnSaveSuccessResponse.toObject());
+          }
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+
+    const createTaskCatchException = new BaseResponse(
+      '500',
+      `Internal Server Error: ${e.message}`,
+      null
+    );
+
+    res.status(500).send(createTaskCatchException.toObject());
   }
 });
 

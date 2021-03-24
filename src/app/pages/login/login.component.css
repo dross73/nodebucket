@@ -16,7 +16,8 @@
 .login-title {
   text-align: center;
   font-size: 48px;
-  font-weight: lighter;
+  font-weight: normal;
+  line-height: normal;
 }
 
 .login-subtitle {
@@ -26,4 +27,10 @@
 .error-message {
   color: red;
   text-align: center;
+}
+
+@media only screen and (max-width: 992px) {
+  .login-container {
+    width: 80% !important;
+  }
 }

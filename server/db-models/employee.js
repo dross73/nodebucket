@@ -8,11 +8,14 @@
 ;===========================================
 */
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Item = require('./item');
 
 let employeeSchema = mongoose.Schema(
   {
     empId: { type: String, unique: true },
+    todo: [Item],
+    done: [Item],
   },
   { collection: "employees" }
 );
