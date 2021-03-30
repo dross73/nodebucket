@@ -340,7 +340,7 @@ router.delete("/:empId/tasks/:taskId", async (req, res) => {
                 updatedDoneItemEmployee
               );
 
-              res.status(200).send(updatedDoneItemEmployee);
+              res.status(200).send(deleteDoneItemSuccess);
             }
           });
         } else {
