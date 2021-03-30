@@ -23,7 +23,7 @@ export class TaskService {
 
   /**
    * @param empId
-   * @returns An observable typ of 'any' and the tasks associate with the empId passed in.
+   * @returns An observable type of 'any' and the tasks associate with the empId passed in.
    */
   findAllTasks(empId: string): Observable<any> {
 
