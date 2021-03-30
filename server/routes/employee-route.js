@@ -64,10 +64,11 @@ router.get("/:empId", async (req, res) => {
   }
 });
 
+
 /**
  * API CreateTask
- */
-
+ * This is a post request that will create a task for the todo list in MongoDb
+ * */
 router.post("/:empId/tasks", async (req, res) => {
   //Catch any server level exceptions that may occur in the application.
   try {

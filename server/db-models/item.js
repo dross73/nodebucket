@@ -11,8 +11,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//Create new Item schema with one field.
 let itemSchema = new Schema({
   text: { type: String },
 });
 
+//Export so it's accessible to other files in the application.
 module.exports = itemSchema;
