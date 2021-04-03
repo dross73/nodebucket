@@ -23,13 +23,14 @@
   }
 
   .main-content {
-    padding-left: 30px;
+    padding: 20px;
   }
 
   .footer {
     /* bottom: 0;
     position: absolute; */
     width: 100%;
+
   }
 
   .footer-content {
@@ -37,6 +38,7 @@
     font-weight: lighter;
     padding-left: 100px;
     letter-spacing: 3px;
+    white-space: normal;
   }
 
   .bu-link {
