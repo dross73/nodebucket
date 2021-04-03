@@ -32,6 +32,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-task-dialog.component';
+import { AboutComponent } from './pages/about/about.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-ta
     BaseLayoutComponent,
     AuthLayoutComponent,
     LoginComponent,
-    CreateTaskDialogComponent
+    CreateTaskDialogComponent,
+    AboutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

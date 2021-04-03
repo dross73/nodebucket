@@ -1,3 +1,5 @@
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AboutComponent } from './pages/about/about.component';
 /*
 ============================================
 ; Title: app-routing.module.ts
@@ -27,18 +29,32 @@ const routes: Routes = [
         component: HomeComponent,
         //Apply a guard to our Home Component so users that are not logged in cannot access.
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'about',
+        component: AboutComponent
       }
     ]
   },
+
   {
     path: 'session',
     component: AuthLayoutComponent,
     children: [
       {
+        path: 'not-found',
+        component: NotFoundComponent
+      },
+      {
         path: 'login',
         component: LoginComponent
       }
     ]
+  },
+  {
+    //If an invalid URL is entered, this will redirect them to the not-found component.
+    path: '**',
+    redirectTo: 'session/not-found'
   }
 ];
 
