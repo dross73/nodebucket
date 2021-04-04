@@ -10,20 +10,29 @@
 <div fxLayout="column">
 
     <!-- navigation -->
-    <nav fxFlex>
-      <mat-toolbar>
+
+
         <!-- navbar container -->
         <div class="navbar-container">
           <!-- logo -->
-          <button class="logo" routerLink="/" mat-button>nodebucket</button>
 
-          <button class="navbar-link" routerLink="/" mat-button>Home</button>
-          <button class="navbar-link" mat-button>About</button>
-          <button class="navbar-link" mat-button>Log Out</button>
+          <ul>
+            <li><button class="logo" routerLink="/" mat-button>nodebucket</button></li>
+            <li> <button class="navbar-link" routerLink="/" mat-button>Home</button></li>
+            <li><button class="navbar-link" routerLink="/about" mat-button>About</button></li>
+            <li><button class="navbar-link" routerLink="/about" mat-button>About</button></li>
+            <li><button class="navbar-link" (click)="logOut()" mat-button>Log Out</button></li>
+          </ul>
+
+
+
+
+
         </div>
 
-      </mat-toolbar>
-    </nav>
+
+
+
 
     <!-- main content -->
     <div fxFlex>
