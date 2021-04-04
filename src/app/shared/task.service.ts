@@ -66,6 +66,6 @@ export class TaskService {
    * @returns the task that needs to be deleted based on the empId and the taskId that's passed.
    */
   deleteTask(empId: string, taskId: string): Observable<any> {
-    return this.http.delete('/api/employees/' + empId + 'tasks/' + taskId);
+    return this.http.delete('/api/employees/' + empId + '/tasks/' + taskId);
   }
 }

@@ -67,14 +67,14 @@ export class HomeComponent implements OnInit {
   /**
    * This is the code for our dialog to create a new task.
    */
-  openCreateTaskDialog()  {
+  openCreateTaskDialog() {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
       disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        this. taskService.createTask(this.empId, data.text).subscribe(res => {
+        this.taskService.createTask(this.empId, data.text).subscribe(res => {
           this.employee = res.data;
         }, err => {
           console.log(err);
@@ -122,31 +122,31 @@ export class HomeComponent implements OnInit {
    *
    * This will delete a task from our list.
    */
-deleteTask(taskId: string): void {
+  deleteTask(taskId: string): void {
 
-  if (taskId) {
-    console.log(`Task item ${taskId} was deleted`);
-    this.taskService.deleteTask(this.empId, taskId).subscribe(res => {
+    if (taskId) {
+      console.log(`Task item ${taskId} was deleted`);
+      this.taskService.deleteTask(this.empId, taskId).subscribe(res => {
 
-      this.employee = res.data;
+        this.employee = res.data;
 
-    }, err => {
-      console.log(err);
-    }, () => {
-      this.todo = this.employee.todo;
-      this.done = this.employee.done;
-    })
+      }, err => {
+        console.log(err);
+      }, () => {
+        this.todo = this.employee.todo;
+        this.done = this.employee.done;
+      })
+    }
   }
-}
 
 
- /**
-  *
-  * @param empId
-  * @param todo
-  * @param done
-  */
-  private updateTaskList(empId: string, todo: Item[], done: Item[]): void{
+  /**
+   *
+   * @param empId
+   * @param todo
+   * @param done
+   */
+  private updateTaskList(empId: string, todo: Item[], done: Item[]): void {
 
     this.taskService.updateTask(empId, todo, done).subscribe(res => {
       this.employee = res.data;
