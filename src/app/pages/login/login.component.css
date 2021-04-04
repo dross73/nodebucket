@@ -28,7 +28,7 @@
   color: red;
   text-align: center;
 }
-
+/* Make the form look better on smaller devices.  */
 @media only screen and (max-width: 992px) {
   .login-container {
     width: 80% !important;

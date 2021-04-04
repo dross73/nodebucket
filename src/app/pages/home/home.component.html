@@ -115,6 +115,10 @@
               [cdkDropListConnectedTo]="todoLIst"
               (cdkDropListDropped)="drop($event)"
             >
+
+            <!-- This section can be dragged and dropped in the UI.  -->
+
+            <!-- Loop over our 'done' array -->
               <div *ngFor="let item of done" cdkDrag>
                 <mat-card class="mat-elevation-z0 task-card">
                   <mat-card-content>
@@ -137,6 +141,7 @@
                           #doneOptions="matMenu"
                           x-position="navigate_before"
                         >
+                         <!-- This is our button to delete a task -->
                           <button (click)="deleteTask(item._id)" mat-menu-item>
                             Remove
                           </button>

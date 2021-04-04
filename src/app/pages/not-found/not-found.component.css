@@ -7,6 +7,8 @@
 ; Description: This is the not-found component stylesheet.
 ;===========================================
 */
+
+/* This will display the 404 image. The image will resize according the scree it's being viewed on (responsive). */
 .bg {
   background: url("/assets/404.jpg") no-repeat center center fixed;
   -webkit-background-size: contain;
