@@ -1,5 +1,5 @@
 {
-  "name": "dross-nodebucket",
+  "name": "nodebucket",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
