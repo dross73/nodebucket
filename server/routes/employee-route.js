@@ -12,10 +12,9 @@
  * These are our require statements.
  */
 const express = require("express");
-const { restart } = require("nodemon");
+// const { restart } = require("nodemon");
 const Employee = require("../db-models/employee");
 const BaseResponse = require("../service/base-response");
-
 const router = express.Router();
 
 /**
