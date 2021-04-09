@@ -8,48 +8,50 @@
 ;===========================================
 */ -->
 <div fxLayout="column">
+  <!-- navigation -->
 
-    <!-- navigation -->
+  <!-- navbar container -->
+  <div class="navbar-container">
+    <!-- logo -->
 
-
-        <!-- navbar container -->
-        <div class="navbar-container">
-          <!-- logo -->
-
-          <ul>
-            <li><button class="logo" routerLink="/" mat-button>nodebucket</button></li>
-            <li> <button class="navbar-link" routerLink="/" mat-button>Home</button></li>
-            <li><button class="navbar-link" routerLink="/about" mat-button>About</button></li>
-            <li><button class="navbar-link" routerLink="/about" mat-button>About</button></li>
-            <li><button class="navbar-link" (click)="logOut()" mat-button>Log Out</button></li>
-          </ul>
-
-
-
-
-
-        </div>
-
-
-
-
-
-    <!-- main content -->
-    <div fxFlex>
-      <main class="main-content" fxFlex="100%;">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-
-    <!-- footer -->
-    <div fxFlex>
-      <footer class="footer">
-        <mat-toolbar class="footer-content">
-          <p>
-            &copy; {{year | date: 'yyyy'}} - nodebucket - <a href="https://www.bellevue.edu/" class="bu-link" target="_blank">Bellevue University</a>
-          </p>
-        </mat-toolbar>
-      </footer>
-    </div>
-
+    <ul>
+      <li>
+        <button class="logo" routerLink="/" mat-button>nodebucket</button>
+      </li>
+      <li>
+        <button class="navbar-link" routerLink="/" mat-button>Home</button>
+      </li>
+      <li>
+        <button class="navbar-link" routerLink="/about" mat-button>
+          About
+        </button>
+      </li>
+      <li>
+        <button class="navbar-link" (click)="logOut()" mat-button>
+          Log Out
+        </button>
+      </li>
+    </ul>
   </div>
+
+  <!-- main content -->
+  <div fxFlex>
+    <main class="main-content" fxFlex="100%;">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- footer -->
+  <div fxFlex>
+    <footer class="footer">
+      <mat-toolbar class="footer-content">
+        <p>
+          &copy; {{ year | date: "yyyy" }} - nodebucket -
+          <a href="https://www.bellevue.edu/" class="bu-link" target="_blank"
+            >Bellevue University</a
+          >
+        </p>
+      </mat-toolbar>
+    </footer>
+  </div>
+</div>
