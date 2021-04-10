@@ -26,6 +26,7 @@ export class CreateTaskDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
+      //Set the create task input field to required and limit entries to 250 characters.
       text: [null, Validators.compose([Validators.required, Validators.maxLength(250)])]
 
     })

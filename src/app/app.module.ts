@@ -34,6 +34,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-task-dialog.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MainNavComponent } from './shared/main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     LoginComponent,
     CreateTaskDialogComponent,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,10 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     MatSnackBarModule,
     DragDropModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,8 +8,8 @@
 ;===========================================
 */
 
-.about-cnt {
-  max-width: 600px;
-
+/* make our images responsive. */
+img {
+  max-width: 95%;
 }
 

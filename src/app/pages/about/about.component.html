@@ -10,7 +10,28 @@
 <!-- We're using Angular Flex Layouts -->
 
 <!-- Start our main container here.  -->
-<div fxLayout="column" class="about-cnt">
+<!-- Collapse to columns on smaller screens.  -->
+<div fxLayout="row wrap" fxLayout.lt-sm="column">
+  <div fxFlex>
+    <!-- This is our left column -->
+    <div fxLayout="column">
+      <div>
+        <img src="./assets/todolist.jpg" />
+      </div>
+      <div>
+        <em>
+          Photo from Forbes.com on
+          <a
+            class="attribution-link"
+            href="https://www.forbes.com/sites/biancabarratt/2019/01/30/how-to-write-a-to-do-list-that-youll-actually-stick-to/"
+            target="_blank"
+            >Forbes</a
+          >
+        </em>
+      </div>
+    </div>
+  </div>
+  <!-- This is our right column. -->
   <div fxFlex>
     <h1 class="blue">About Nodebucket</h1>
     <p>
@@ -24,4 +45,3 @@
     </p>
   </div>
 </div>
-<!-- End our main container here.  -->

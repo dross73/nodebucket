@@ -1,0 +1,40 @@
+ /*
+============================================
+; Title: main-nav.component.css
+; Author: Dan Ross
+; Date: 10 April 2021
+; Modified By: Dan Ross
+; Description: This is the main-nav component CSS file
+;===========================================
+*/
+.sidenav-container {
+  height: 100%;
+}
+.sidenav {
+  width: 200px;
+}
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+/* Hide if not handset */
+.hidden {
+  display: none;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.logOut {
+  cursor: pointer;
+}
+/* Push the toolbar horizontal nav to the left */
+.spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+  text-decoration: none;;
+}
