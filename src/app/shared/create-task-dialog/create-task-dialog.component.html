@@ -14,6 +14,7 @@
 <!-- This is our dialog where we can enter a new task. -->
 <mat-dialog-content [formGroup]="taskForm">
   <mat-form-field>
+    <!-- This is where we input our task.  -->
     <input
       type="text"
       matInput
@@ -23,7 +24,7 @@
     />
   </mat-form-field>
 </mat-dialog-content>
-
+<!-- Here are our 'Cancel' and 'Create Task' buttons for our dialog -->
 <mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancel</button>
   <button mat-button (click)="createTask()" [disabled]="!taskForm.valid">Create Task</button>
