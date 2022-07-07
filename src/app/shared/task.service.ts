@@ -4,7 +4,7 @@
 ; Author: Dan Ross
 ; Date: 30 March 2021
 ; Modified By: Dan Ross
-; Description: This file is responsible for making all of the HTTP requests we're going to need in our application.
+; Description: This is our task service page
 ;===========================================
 */
 

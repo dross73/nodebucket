@@ -7,14 +7,13 @@
 ; Description: This is the base layout component HTML file.
 ;===========================================
 */ -->
-<div fxLayout="column">
+<div fxLayout="column" fxFlexFill>
   <!-- navigation -->
 
   <!-- navbar container -->
   <div class="navbar-container">
     <!-- logo -->
-<app-main-nav></app-main-nav>
-    
+    <app-main-nav></app-main-nav>
   </div>
 
   <!-- main content -->
@@ -25,7 +24,7 @@
   </div>
 
   <!-- footer -->
-  <div fxFlex>
+ 
     <footer class="footer">
       <mat-toolbar class="footer-content">
         <p>
@@ -36,5 +35,5 @@
         </p>
       </mat-toolbar>
     </footer>
-  </div>
+
 </div>

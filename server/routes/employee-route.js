@@ -22,6 +22,7 @@ const router = express.Router();
  * @param empId
  * @returns Employee document or null
  */
+
 //These will go through http://localhost:3000/api/employees/:empId
 
 router.get("/:empId", async (req, res) => {
