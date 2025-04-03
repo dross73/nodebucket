@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -43,11 +44,9 @@ export class LoginComponent implements OnInit {
   }
   //This will handles the API request when someone logs into the system.
   login() {
-    //Access the login form field value.
     const empId = this.loginForm.controls['empId'].value;
-
-    //Make our API call to the server
-    this.http.get('/api/employees/' + empId).subscribe(res => {
+  
+    this.http.get(`${environment.apiUrl}/employees/${empId}`).subscribe(res => {
       if (res['data']) {
         this.cookieService.set('session_user', empId, 1);
         this.router.navigate(['/']);
@@ -60,6 +59,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+  
   //Open our error message in Snack Bar.
   openSnackBar(message: string, notificationType: string): void {
     this.snackBar.open(message, notificationType, {
