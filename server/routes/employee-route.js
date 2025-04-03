@@ -25,42 +25,33 @@ const router = express.Router();
 
 //These will go through http://localhost:3000/api/employees/:empId
 
-router.get("/:empId", async (req, res) => {
+router.get('/:empId', async (req, res) => {
   try {
-    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
-      //Do this if there's an error.
-      if (err) {
-        console.log(err);
+    const empId = req.params.empId;
+    const employee = await Employee.findOne({ empId: empId });
 
-        const mongoDBErrorResponse = new BaseResponse(
-          "500",
-          `MongoDB Native Error: ${err}`,
-          null
-        );
-        res.json(mongoDBErrorResponse.toObject());
-      } else {
-        //Do this for successful query.
-        console.log(employee);
-
-        const employeeResponse = new BaseResponse(
-          "200",
-          "Successful query",
-          employee
-        );
-
-        res.json(employeeResponse.toObject());
-      }
+    if (employee) {
+      res.status(200).json({
+        httpCode: 200,
+        message: 'Success',
+        data: employee,
+        timestamp: new Date().toLocaleDateString()
+      });
+    } else {
+      res.status(200).json({
+        httpCode: 200,
+        message: 'Invalid employeeId',
+        data: null,
+        timestamp: new Date().toLocaleDateString()
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      httpCode: 500,
+      message: `Internal Server Error: ${err.message}`,
+      data: null,
+      timestamp: new Date().toLocaleDateString()
     });
-  } catch (e) {
-    console.log(e);
-
-    const findEmployeeCatchError = new BaseResponse(
-      "500",
-      `Internal Server Error: ${e.message}`,
-      null
-    );
-
-    res.json(findEmployeeCatchError.toObject());
   }
 });
 
