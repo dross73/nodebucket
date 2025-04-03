@@ -8,355 +8,118 @@
 ;===========================================
 */
 
-/**
- * These are our require statements.
- */
 const express = require("express");
-// const { restart } = require("nodemon");
 const Employee = require("../db-models/employee");
 const BaseResponse = require("../service/base-response");
 const router = express.Router();
 
 /**
- * API findEmployeeById
- * @param empId
- * @returns Employee document or null
+ * GET: Find employee by ID
  */
-
-//These will go through http://localhost:3000/api/employees/:empId
-
 router.get('/:empId', async (req, res) => {
   try {
     const empId = req.params.empId;
     const employee = await Employee.findOne({ empId: empId });
 
     if (employee) {
-      res.status(200).json({
-        httpCode: 200,
-        message: 'Success',
-        data: employee,
-        timestamp: new Date().toLocaleDateString()
-      });
+      res.status(200).json(new BaseResponse("200", "Success", employee).toObject());
     } else {
-      res.status(200).json({
-        httpCode: 200,
-        message: 'Invalid employeeId',
-        data: null,
-        timestamp: new Date().toLocaleDateString()
-      });
+      res.status(200).json(new BaseResponse("200", "Invalid employeeId", null).toObject());
     }
   } catch (err) {
-    res.status(500).json({
-      httpCode: 500,
-      message: `Internal Server Error: ${err.message}`,
-      data: null,
-      timestamp: new Date().toLocaleDateString()
-    });
+    res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
 });
 
 /**
- * API CreateTask
- * This is a post request that will create a task for the todo list in MongoDb
- * */
+ * POST: Create a new task
+ */
 router.post("/:empId/tasks", async (req, res) => {
-  //Catch any server level exceptions that may occur in the application.
   try {
-    //Retrieve the employee record that we're looking for.
-    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
-      if (err) {
-        console.log(err);
+    const employee = await Employee.findOne({ empId: req.params.empId });
 
-        const createTaskMongoDbError = new BaseResponse(
-          "500",
-          `MongoDb Exception: ${err.message}`,
-          null
-        );
-
-        res.status(500).send(createTaskMongoDbError.toObject());
-      } else {
-        console.log(employee);
-        //Make sure then employee record exists before updating.
-        if (employee) {
-          const item = {
-            text: req.body.text,
-          };
-          //Push item to todo array
-          employee.todo.push(item);
-
-          employee.save(function (err, updatedEmployee) {
-            if (err) {
-              console.log(err);
-
-              const createTaskOnSaveMongoDbError = new BaseResponse(
-                "500",
-                `MongoDB onSave() exception: ${err.message}`,
-                null
-              );
-
-              res.status(500).send(createTaskOnSaveMongoDbError.toObject());
-            } else {
-              console.log(updatedEmployee);
-
-              const createTaskOnSaveSuccessResponse = new BaseResponse(
-                "200",
-                "Successful query",
-                updatedEmployee
-              );
-
-              res.status(200).send(createTaskOnSaveSuccessResponse.toObject());
-            }
-          });
-        } else {
-          //If the employee record that's sent back is invalid, do this.
-          console.log("invalid employeeId");
-
-          const invalidEmployeeResponse = new BaseResponse(
-            "200",
-            "Invalid employeeId",
-            null
-          );
-
-          res.status(200).send(invalidEmployeeResponse.toObject());
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-
-    const createTaskCatchException = new BaseResponse(
-      "500",
-      `Internal Server Error: ${e.message}`,
-      null
-    );
-
-    res.status(500).send(createTaskCatchException.toObject());
+    if (employee) {
+      const item = { text: req.body.text };
+      employee.todo.push(item);
+      const updatedEmployee = await employee.save();
+      res.status(200).json(new BaseResponse("200", "Task added", updatedEmployee).toObject());
+    } else {
+      res.status(200).json(new BaseResponse("200", "Invalid employeeId", null).toObject());
+    }
+  } catch (err) {
+    res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
 });
 
 /**
- * API" findAllTasks
+ * GET: Find all tasks
  */
 router.get("/:empId/tasks", async (req, res) => {
   try {
-    Employee.findOne(
+    const employee = await Employee.findOne(
       { empId: req.params.empId },
-      "empId todo done",
-      function (err, employee) {
-        if (err) {
-          console.log(err);
-
-          const mongoDBFindAllTasksException = new BaseResponse(
-            "500",
-            `Internal server error ${err.message}`,
-            null
-          );
-
-          res.status(500).send(mongoDBFindAllTasksException.toObject());
-        } else {
-          console.log(employee);
-
-          const employeeTaskResponse = new BaseResponse(
-            "200",
-            "Query successful",
-            employee
-          );
-          res.status(200).send(employeeTaskResponse.toObject());
-        }
-      }
-    );
-  } catch (e) {
-    const errorCatchResponse = new BaseResponse(
-      "500",
-      `Internal server error ${e.message}`,
-      null
+      "empId todo done"
     );
 
-    res.status(500).send(errorCatchResponse.toObject());
+    if (employee) {
+      res.status(200).json(new BaseResponse("200", "Query successful", employee).toObject());
+    } else {
+      res.status(200).json(new BaseResponse("200", "Invalid employeeId", null).toObject());
+    }
+  } catch (err) {
+    res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
 });
 
 /**
- * API: updateTask
+ * PUT: Update tasks
  */
 router.put("/:empId/tasks", async (req, res) => {
   try {
-    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
-      if (err) {
-        console.log(err);
+    const employee = await Employee.findOne({ empId: req.params.empId });
 
-        const updateTaskMongodbException = new BaseResponse(
-          "500",
-          `Internal server error ${err.message}`,
-          null
-        );
-
-        res.status(500).send(updateTaskMongodbException.toObject());
-      } else {
-        console.log(employee);
-        //Make sure valid employee is returned
-        if (employee) {
-          //Update the employee record.
-          employee.set({
-            todo: req.body.todo,
-            done: req.body.done,
-          });
-
-          employee.save(function (err, updatedEmployee) {
-            if (err) {
-              console.log(err);
-
-              const updateTaskMongoDbError = new BaseResponse(
-                "500",
-                `Internal server error ${err.message}`,
-                null
-              );
-
-              res.status(500).send(updateTaskMongoDbError.toObject());
-            } else {
-              console.log(updatedEmployee);
-
-              const updateTaskSuccessResponse = new BaseResponse(
-                "200",
-                "Query Successful",
-                updatedEmployee
-              );
-
-              res.status(200).send(updateTaskSuccessResponse.toObject());
-            }
-          });
-        } else {
-          console.log(
-            `Invalid employeeId! The passed-in value was ${req.params.empId}`
-          );
-
-          const invalidEmployeeIdResponse = new BaseResponse(
-            "200",
-            "Invalid employeeId",
-            null
-          );
-
-          res.status(200).send(invalidEmployeeIdResponse.toObject());
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-
-    const updateTaskCatchResponse = new BaseResponse(
-      "500",
-      `Internal server error ${e.message}`,
-      null
-    );
-
-    res.status(500).send(updateTaskCatchResponse.toObject());
+    if (employee) {
+      employee.set({
+        todo: req.body.todo,
+        done: req.body.done
+      });
+      const updatedEmployee = await employee.save();
+      res.status(200).json(new BaseResponse("200", "Tasks updated", updatedEmployee).toObject());
+    } else {
+      res.status(200).json(new BaseResponse("200", "Invalid employeeId", null).toObject());
+    }
+  } catch (err) {
+    res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
 });
 
 /**
- * API: deleteTask
+ * DELETE: Delete a task
  */
 router.delete("/:empId/tasks/:taskId", async (req, res) => {
   try {
-    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
-      if (err) {
-        console.log(err);
-        const deleteTaskMongoDbError = new BaseResponse(
-          "500",
-          `Internal server error ${err.message}`,
-          null
-        );
+    const employee = await Employee.findOne({ empId: req.params.empId });
 
-        res.status(500).send(deleteTaskMongoDbError.toObject());
-      } else {
-        console.log(employee);
-        //Search the todo array for the document id.
-        const todoItem = employee.todo.find(
-          (item) => item._id.toString() === req.params.taskId
-        );
-        const doneItem = employee.done.find(
-          (item) => item._id.toString() === req.params.taskId
-        );
+    if (!employee) {
+      return res.status(200).json(new BaseResponse("200", "Invalid employeeId", null).toObject());
+    }
 
-        if (todoItem) {
-          console.log(todoItem);
+    const todoItem = employee.todo.id(req.params.taskId);
+    const doneItem = employee.done.id(req.params.taskId);
 
-          employee.todo.id(todoItem._id).remove();
+    if (todoItem) {
+      todoItem.remove();
+    } else if (doneItem) {
+      doneItem.remove();
+    } else {
+      return res.status(200).json(new BaseResponse("200", "Invalid taskId", null).toObject());
+    }
 
-          employee.save(function (err, updatedTodoItemEmployee) {
-            if (err) {
-              console.log(err);
+    const updatedEmployee = await employee.save();
+    res.status(200).json(new BaseResponse("200", "Task deleted", updatedEmployee).toObject());
 
-              const deleteTodoItemMongodbError = new BaseResponse(
-                "500",
-                `Internal server error ${err.message}`,
-                null
-              );
-
-              res.status(500).send(deleteTodoItemMongodbError.toObject());
-            } else {
-              console.log(updatedTodoItemEmployee);
-
-              const deleteTodoItemSuccess = new BaseResponse(
-                "200",
-                "Query successful",
-                updatedTodoItemEmployee
-              );
-
-              res.status(200).send(deleteTodoItemSuccess.toObject());
-            }
-          });
-        } else if (doneItem) {
-          console.log(doneItem);
-
-          employee.done.id(doneItem._id).remove();
-
-          employee.save(function (err, updatedDoneItemEmployee) {
-            if (err) {
-              console.log(err);
-
-              const deleteDoneItemMongodbError = new BaseResponse(
-                "500",
-                `Internal server error ${err.message}`,
-                null
-              );
-
-              res.status(500).send(deleteDoneItemMongodbError.toObject());
-            } else {
-              console.log(updatedDoneItemEmployee);
-
-              const deleteDoneItemSuccess = new BaseResponse(
-                "200",
-                "Query Successful",
-                updatedDoneItemEmployee
-              );
-
-              res.status(200).send(deleteDoneItemSuccess);
-            }
-          });
-        } else {
-          console.log(`Invalid taskId: passed-in value ${req.params.taskId}`);
-
-          const invalidTaskIdResponse = new BaseResponse(
-            "200",
-            "Invalid taskId",
-            null
-          );
-
-          res.status(200).send(invalidTaskIdResponse.toObject());
-        }
-      }
-    });
-  } catch (e) {
-    console.log(e);
-
-    const deleteTaskCatchError = new BaseResponse(
-      "500",
-      `Internal server error ${e.message}`,
-      null
-    );
-
-    res.status(500).send(deleteTaskCatchError.toObject());
+  } catch (err) {
+    res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
 });
 
