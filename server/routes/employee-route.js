@@ -11,15 +11,15 @@
 const express = require("express");
 const Employee = require("../db-models/employee");
 const BaseResponse = require("../service/base-response");
+
 const router = express.Router();
 
 /**
- * GET: Find employee by ID
+ * GET /api/employees/:empId
  */
 router.get('/:empId', async (req, res) => {
   try {
-    const empId = req.params.empId;
-    const employee = await Employee.findOne({ empId: empId });
+    const employee = await Employee.findOne({ empId: req.params.empId });
 
     if (employee) {
       res.status(200).json(new BaseResponse("200", "Success", employee).toObject());
@@ -32,7 +32,7 @@ router.get('/:empId', async (req, res) => {
 });
 
 /**
- * POST: Create a new task
+ * POST /api/employees/:empId/tasks
  */
 router.post("/:empId/tasks", async (req, res) => {
   try {
@@ -41,6 +41,7 @@ router.post("/:empId/tasks", async (req, res) => {
     if (employee) {
       const item = { text: req.body.text };
       employee.todo.push(item);
+
       const updatedEmployee = await employee.save();
       res.status(200).json(new BaseResponse("200", "Task added", updatedEmployee).toObject());
     } else {
@@ -52,7 +53,7 @@ router.post("/:empId/tasks", async (req, res) => {
 });
 
 /**
- * GET: Find all tasks
+ * GET /api/employees/:empId/tasks
  */
 router.get("/:empId/tasks", async (req, res) => {
   try {
@@ -72,17 +73,16 @@ router.get("/:empId/tasks", async (req, res) => {
 });
 
 /**
- * PUT: Update tasks
+ * PUT /api/employees/:empId/tasks
  */
 router.put("/:empId/tasks", async (req, res) => {
   try {
     const employee = await Employee.findOne({ empId: req.params.empId });
 
     if (employee) {
-      employee.set({
-        todo: req.body.todo,
-        done: req.body.done
-      });
+      employee.todo = req.body.todo;
+      employee.done = req.body.done;
+
       const updatedEmployee = await employee.save();
       res.status(200).json(new BaseResponse("200", "Tasks updated", updatedEmployee).toObject());
     } else {
@@ -94,7 +94,7 @@ router.put("/:empId/tasks", async (req, res) => {
 });
 
 /**
- * DELETE: Delete a task
+ * DELETE /api/employees/:empId/tasks/:taskId
  */
 router.delete("/:empId/tasks/:taskId", async (req, res) => {
   try {
@@ -117,7 +117,6 @@ router.delete("/:empId/tasks/:taskId", async (req, res) => {
 
     const updatedEmployee = await employee.save();
     res.status(200).json(new BaseResponse("200", "Task deleted", updatedEmployee).toObject());
-
   } catch (err) {
     res.status(500).json(new BaseResponse("500", `Internal Server Error: ${err.message}`, null).toObject());
   }
