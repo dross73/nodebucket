@@ -15,6 +15,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser')
 const path = require('path');
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 const EmployeeAPI = require('./routes/employee-route');
 
@@ -33,8 +34,10 @@ app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')));
  */
 const port = process.env.PORT || 3000; // server port
 
-const conn = 'mongodb+srv://nodebucket_user:admin@buwebdev-cluster-1.cnaxx.mongodb.net/nodebucket?retryWrites=true&w=majority';
-
+const conn =
+  "mongodb+srv://bcrs_user:" +
+  process.env.MONGO_ATLAS_PW +
+  "@bcrs-cluster.qwxox9f.mongodb.net/nodebucket?retryWrites=true&w=majority&appName=bcrs-cluster";
 /**
  * Database connection
  */
