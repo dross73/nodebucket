@@ -9,7 +9,11 @@
 *//**
  * Require statements
  */
+
+
+
 const express = require('express');
+const cors = require('cors');
 const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser')
@@ -23,13 +27,20 @@ const EmployeeAPI = require('./routes/employee-route');
  * App configurations
  */
 let app = express();
+
+// CORS must be used AFTER app is defined
+const corsOptions = {
+  origin: 'https://nodebucket-front-end.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({'extended': true}));
+app.use(express.urlencoded({ 'extended': true }));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../dist/nodebucket')));
 app.use('/', express.static(path.join(__dirname, '../dist/nodebucket')));
-const cors = require('cors');
-app.use(cors());
+
 /**
  * Variables
  */
@@ -63,6 +74,6 @@ app.use('/api/employees', EmployeeAPI);
 /**
  * Create and start server
  */
-http.createServer(app).listen(port, function() {
+http.createServer(app).listen(port, function () {
   console.log(`Application started and listening on port: ${port}`)
 }); // end http create server function
