@@ -105,5 +105,3 @@ Or check the [Angular CLI README](https://github.com/angular/angular-cli/blob/ma
 
 Dan Ross
 ```
-
-Let me know if you want to add a **screenshot**, a **backend API URL**, or more info on the tech stack/components used. This version is polished and ready to go!
