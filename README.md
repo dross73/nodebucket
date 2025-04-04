@@ -1,15 +1,3 @@
-Absolutely — here's an updated, cleaned-up `README.md` for your **Nodebucket** project. I've:
-
-- Added the **live production URL**  
-- Noted the **Render cold-start delay** (common on free tiers)  
-- Kept original dev info, cleaned it up just a bit  
-- Added a **"Project Overview"** section to explain what this app does (you can adjust this as needed)
-
----
-
-### ✅ Updated `README.md`
-
-```markdown
 # Nodebucket
 
 Nodebucket is an Angular-based task management app built with the MEAN stack (MongoDB, Express, Angular, Node.js). Employees can log in by their employee ID and manage their assigned tasks in "To Do" and "Done" categories.
