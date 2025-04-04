@@ -12,12 +12,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from './item.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TaskService {
+
+  private apiUrl = environment.apiUrl; 
   //Use HttpClient to make API calls from Angular
   constructor(private http: HttpClient) { }
 
@@ -27,7 +30,7 @@ export class TaskService {
    */
   findAllTasks(empId: string): Observable<any> {
 
-    return this.http.get('/api/employees/' + empId + '/tasks')
+    return this.http.get(`${this.apiUrl}/employees/${empId}/tasks`);
 
   }
 
@@ -39,9 +42,7 @@ export class TaskService {
    */
   createTask(empId: string, task: string): Observable<any> {
 
-    return this.http.post('/api/employees/' + empId + '/tasks', {
-      text: task
-    })
+    return this.http.post(`${this.apiUrl}/employees/${empId}/tasks`, { text: task });
   }
 
   /**
@@ -52,11 +53,7 @@ export class TaskService {
    * @returns the updated task based on the empId passed.
    */
   updateTask(empId: string, todo: Item[], done: Item[]): Observable<any> {
-
-    return this.http.put('/api/employees/' + empId + '/tasks', {
-      todo,
-      done
-    })
+    return this.http.put(`${this.apiUrl}/employees/${empId}/tasks`, { todo, done });
   }
 
   /**
@@ -66,6 +63,6 @@ export class TaskService {
    * @returns the task that needs to be deleted based on the empId and the taskId that's passed.
    */
   deleteTask(empId: string, taskId: string): Observable<any> {
-    return this.http.delete('/api/employees/' + empId + '/tasks/' + taskId);
+    return this.http.delete(`${this.apiUrl}/employees/${empId}/tasks/${taskId}`);
   }
 }
