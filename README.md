@@ -104,4 +104,3 @@ Or check the [Angular CLI README](https://github.com/angular/angular-cli/blob/ma
 ## ✨ Author
 
 Dan Ross
-```
