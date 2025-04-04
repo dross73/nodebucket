@@ -1,3 +1,4 @@
+// Triggering a rebuild to update API URL in dist output
 /*
 ============================================
 ; Title: app.component.ts
@@ -17,4 +18,3 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
 }
-//trigger change
