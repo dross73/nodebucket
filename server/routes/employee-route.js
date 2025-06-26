@@ -109,11 +109,13 @@ router.delete("/:empId/tasks/:taskId", async (req, res) => {
     const doneItem = employee.done.id(req.params.taskId);
 
     if (todoItem) {
-      todoItem.remove();
+      employee.todo.pull(req.params.taskId);
     } else if (doneItem) {
-      doneItem.remove();
+      employee.done.pull(req.params.taskId);
     } else {
-      return res.status(200).json(new BaseResponse("200", "Invalid taskId", null).toObject());
+      return res
+        .status(200)
+        .json(new BaseResponse("200", "Invalid taskId", null).toObject());
     }
 
     const updatedEmployee = await employee.save();
